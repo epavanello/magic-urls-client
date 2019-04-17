@@ -1,20 +1,19 @@
 import { ADD_TODO, FOUND_BAD_WORD } from "../constants/action-types"
 
-const initialState = {
+import { fromJS } from 'immutable';
+
+const initialState = fromJS({
     todos: [],
     error: ""
-}
+});
 
 function rootReducer(state = initialState, action) {
     if(action.type == ADD_TODO) {
-        return Object.assign({}, state, {
-            todos: state.todos.concat(action.payload),
-            error: ""
-        });
+        return state
+        .set("todos", state.get("todos").push(action.payload))
+        .set("error", "");
     } else if(action.type == FOUND_BAD_WORD) {
-        return Object.assign({}, state, {
-            error: "Todo contains bad words"
-        });
+        return state.set("error", "Todo contains bad words");
     }
     return state;
 }

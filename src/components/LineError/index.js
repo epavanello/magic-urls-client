@@ -2,7 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 
 const mapStateToProps = state => {
-    return { error: state.error };
+    // Move to selectors.js and use rselect for performance (cache)
+    return { error: state.get("error") };
 }
 
 const ConnectedLineError = ({ error }) => (
