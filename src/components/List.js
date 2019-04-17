@@ -36,8 +36,6 @@ const ConnectedList = ({ todos }) => (
 );
 //*/
 
-
-
 const List = connect(mapStateToProps)(ConnectedList);
 
 export default List;

@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import uuidv1 from "uuid";
-import { addTodo } from "../../actions";
-
-import LineError from "../LineError";
+import { addTodo } from "../actions";
 
 function mapDispatchToProps(dispatch) {
     return {
         addTodo: todo => dispatch(addTodo(todo))
     };
+}
+
+const mapStateToProps = state => {
+    // Move to selectors.js and use rselect for performance (cache)
+    return { error: state.get("error") };
 }
 
 class ConnectedForm extends Component {
@@ -45,10 +48,10 @@ class ConnectedForm extends Component {
                     />
                 </div>
                 <button type="submit" className="btn btn-success btn-lg">SAVE</button>
-                <LineError />
+                <p>{this.props.error}</p>
             </form>
         );
     }
 }
-const Form = connect(null, mapDispatchToProps)(ConnectedForm);
+const Form = connect(mapStateToProps, mapDispatchToProps)(ConnectedForm);
 export default Form;
