@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import List from "../List";
 import Form from "../Form";
+import Post from "../Posts";
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
               <div className="card-body">
                 <h2>Add a new todo</h2>
                 <Form />
+                <Post />
               </div>
             </div>
           </div>
