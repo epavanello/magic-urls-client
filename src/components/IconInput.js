@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 
 class IconInput extends Component {
     render() {
@@ -10,10 +11,22 @@ class IconInput extends Component {
                         <span className="input-group-text"><i className={this.props.icon}></i></span>
                     </div>
                 }
-                    <input type={this.props.type || "text"} className="form-control" placeholder={this.props.label} />
+                    <input type={this.props.type} name={this.props.name} className="form-control" placeholder={this.props.label} />
                 </div>
         </div >
      );
     }
 }
+
+IconInput.propTypes = {
+    icon: PropTypes.string,
+    type: PropTypes.string,
+    label: PropTypes.string,
+    name: PropTypes.string,
+  };
+
+  IconInput.defaultProps = {
+    type: "text"
+};
+
 export default IconInput;

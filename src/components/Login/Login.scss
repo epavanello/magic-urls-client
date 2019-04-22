@@ -1,6 +1,7 @@
 @import '../../styles/common';
 
 .login-form, .signup-form{
+    background-color: $white;
     @extend .card;
 
     h3 {
