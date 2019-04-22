@@ -1,0 +1,19 @@
+@import '../../styles/common';
+
+.login-form, .signup-form{
+    @extend .card;
+
+    h3 {
+        text-align: center;
+        @extend .title;
+    }
+
+    form {
+        margin-top: 50px;
+    }
+}
+
+.signup-form {
+    background: $primary-darker;
+    color: $white;
+}
