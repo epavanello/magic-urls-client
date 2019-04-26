@@ -7,12 +7,7 @@ import App from './components/App';
 import { Provider } from "react-redux";
 
 
-
 import store from "./store";
-import { addTodo } from "./actions";
-
-window.store = store;
-window.addTodo = addTodo;
 
 ReactDOM.render(
     <Provider store={store}>

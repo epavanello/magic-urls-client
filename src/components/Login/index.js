@@ -1,17 +1,25 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import IconInput from "../IconInput";
+import { login } from "../../actions";
 
 import './Login.scss';
 
-class Login extends Component {
+function mapDispatchToProps(dispatch) {
+    return {
+        login: credentials => dispatch(login(credentials))
+    };
+}
+
+class ConnectedLogin extends Component {
 
     constructor(props, context) {
         super(props, context);
 
-        this.state = { errors: '' };
+        this.state = { email: '', password: '' };
 
-        this.onLoginSubmit = this.onLoginSubmit.bind(this);
+        this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
     }
 
@@ -21,27 +29,10 @@ class Login extends Component {
         });
     }
 
-    onLoginSubmit(e) {
-        e.preventDefault();
-
-        fetch(this.props.loginAction, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(this.state)
-        }).then(response => {
-            if (response.status >= 200 && response.status < 300) {
-                if(response.ok) {
-                     
-                } else {
-                    
-                }
-              }
-        }).catch(err => {
-            console.log(err);
-        });
+    handleLoginSubmit(event) {
+        event.preventDefault();
+        this.props.login({ email: this.state.email, password: this.state.password });
+        this.setState({ title: "" });
     }
 
     render() {
@@ -56,8 +47,8 @@ class Login extends Component {
                         <form
                             action={this.props.action}
                             method={this.props.method}
-                            onSubmit={this.onLoginSubmit}>
-                            <IconInput label="Username" icon="fa fa-user" type="text" name="username" onChange={this.onChange} required={true} autofocus={true} />
+                            onSubmit={this.handleLoginSubmit}>
+                            <IconInput label="Email" icon="fa fa-user" type="text" name="email" onChange={this.onChange} required={true} autofocus={true} />
                             <IconInput label="Password" icon="fa fa-lock" type="password" name="password" onChange={this.onChange} required={true} />
 
                             <div className="form-group text-center">
@@ -101,10 +92,5 @@ class Login extends Component {
     }
 }
 
-// App.propTypes = { action: React.PropTypes.string.isRequired, method: React.PropTypes.string}
-Login.defaultProps = {
-    loginAction: 'http://localhost:5000/api/login'
-};
-
-
+const Login = connect(null, mapDispatchToProps)(ConnectedLogin);
 export default Login;
