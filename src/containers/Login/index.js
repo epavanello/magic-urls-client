@@ -1,15 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom'
 
-import IconInput from "../IconInput";
-import { login } from "../../actions";
+import IconInput from "../../components/IconInput";
+import { login, loginFake } from "../../actions";
 
 import './Login.scss';
 
 function mapDispatchToProps(dispatch) {
     return {
-        login: credentials => dispatch(login(credentials))
+        login: credentials => dispatch(login(credentials)),
+        loginFake: p => dispatch(loginFake())
     };
+}
+
+const mapStateToProps = state => {
+    // Move to selectors.js and use rselect for performance (cache)
+    return { logged: state.get("logged") };
 }
 
 class ConnectedLogin extends Component {
@@ -31,11 +38,15 @@ class ConnectedLogin extends Component {
 
     handleLoginSubmit(event) {
         event.preventDefault();
-        this.props.login({ email: this.state.email, password: this.state.password });
-        this.setState({ title: "" });
+        this.props.loginFake();
+        //this.props.login({ email: this.state.email, password: this.state.password });
+        //this.setState({ title: "" });
     }
 
     render() {
+        if (this.props.logged) {
+            return <Redirect to="/home" />;
+        }
         return (
             <div className="container h-100">
                 <div className="row  justify-content-center">
@@ -92,5 +103,5 @@ class ConnectedLogin extends Component {
     }
 }
 
-const Login = connect(null, mapDispatchToProps)(ConnectedLogin);
+const Login = connect(mapStateToProps, mapDispatchToProps)(ConnectedLogin);
 export default Login;

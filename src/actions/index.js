@@ -29,9 +29,15 @@ export function login(payload) {
 			body: JSON.stringify({ username: payload.email, password: payload.password })
 		}).then(response => response.json())
 			.then(json => {
-				dispatch({ type: LOGIN_OK, payload: json });
 			}).catch(e => {
 				dispatch({ type: LOGIN_FAIL });
 			});
 	};
 }
+
+export function loginFake() {
+	return function (dispatch) {
+		dispatch({ type: LOGIN_OK });
+	};
+}
+
