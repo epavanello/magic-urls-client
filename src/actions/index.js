@@ -1,4 +1,4 @@
-import { ADD_TODO, FOUND_BAD_WORD, DATA_LOADED, LOGIN_OK, LOGIN_FAIL, ADD_URL } from "../constants/action-types";
+import { ADD_TODO, FOUND_BAD_WORD, DATA_LOADED, LOGIN_START, LOGIN_OK, LOGIN_FAIL, ADD_URL } from "../constants/action-types";
 
 export function addTodo(payload) {
 	return { type: ADD_TODO, payload }
@@ -24,6 +24,7 @@ export function getData() {
 
 export function login(payload) {
 	return function (dispatch) {
+		dispatch({ type: LOGIN_START });
 		return fetch("http://localhost:8000/login", {
 			method: 'POST',
 			headers: {
@@ -31,10 +32,17 @@ export function login(payload) {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({ username: payload.email, password: payload.password })
-		}).then(response => response.json())
+		})
+			.then(response => response.json())
 			.then(json => {
+				if (json.success) {
+					dispatch({ type: LOGIN_OK, payload: json });
+				} else {
+					dispatch({ type: LOGIN_FAIL, payload: json.message });
+				}
 			}).catch(e => {
-				dispatch({ type: LOGIN_FAIL });
+				console.log(e);
+				dispatch({ type: LOGIN_FAIL, payload: e.message });
 			});
 	};
 }

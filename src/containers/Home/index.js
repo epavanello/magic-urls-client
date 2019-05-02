@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import { connect } from "react-redux";
 
 import List from "../../components/List";
@@ -11,7 +12,9 @@ const mapStateToProps = state => {
 
 class ConnectedHome extends Component {
   render() {
-
+    if (!this.props.logged) {
+      return <Redirect to="/login" />;
+    }
     return (
       <div className="container">
         <div className="row justify-content-center">

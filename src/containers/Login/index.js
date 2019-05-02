@@ -3,18 +3,21 @@ import { connect } from "react-redux";
 import { Redirect } from 'react-router-dom'
 
 import IconInput from "../../components/IconInput";
-import { login, loginFake } from "../../actions";
+import { login } from "../../actions";
 
 function mapDispatchToProps(dispatch) {
     return {
-        login: credentials => dispatch(login(credentials)),
-        loginFake: p => dispatch(loginFake())
+        login: credentials => dispatch(login(credentials))
     };
 }
 
 const mapStateToProps = state => {
     // Move to selectors.js and use rselect for performance (cache)
-    return { logged: state.get("logged") };
+    return {
+        logged: state.get("logged"),
+        login_failed: state.get("login_failed"),
+        login_fail_message: state.get("login_fail_message")
+    };
 }
 
 class ConnectedLogin extends Component {
@@ -36,9 +39,7 @@ class ConnectedLogin extends Component {
 
     handleLoginSubmit(event) {
         event.preventDefault();
-        this.props.loginFake();
-        //this.props.login({ email: this.state.email, password: this.state.password });
-        //this.setState({ title: "" });
+        this.props.login({ email: this.state.email, password: this.state.password });
     }
 
     render() {
@@ -59,7 +60,9 @@ class ConnectedLogin extends Component {
                             onSubmit={this.handleLoginSubmit}>
                             <IconInput label="Email" icon="fa fa-user" type="text" name="email" onChange={this.onChange} required={true} autofocus={true} />
                             <IconInput label="Password" icon="fa fa-lock" type="password" name="password" onChange={this.onChange} required={true} />
-
+                            {this.props.login_failed &&
+                                <p className="text-center"><em>{this.props.login_fail_message}</em></p>
+                            }
                             <div className="form-group text-center">
                                 <input type="submit" className="btn btn-primary" value="Login" />
                             </div>
