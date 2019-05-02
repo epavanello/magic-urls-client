@@ -1,3 +1,5 @@
+import { ON_INIT } from "./constants/action-types";
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
@@ -8,6 +10,10 @@ import store from "./store";
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles/index.scss';
 
+
+window.store = store;
+
+store.dispatch({ type: ON_INIT });
 
 ReactDOM.render(
     <Provider store={store}>

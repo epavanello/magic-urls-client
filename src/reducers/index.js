@@ -1,4 +1,4 @@
-import { ADD_TODO, FOUND_BAD_WORD, DATA_LOADED, LOGIN_START, LOGIN_OK, LOGIN_FAIL, ADD_URL } from "../constants/action-types"
+import { ADD_TODO, FOUND_BAD_WORD, DATA_LOADED, LOGIN_START, LOGIN_OK, LOGIN_FAIL, ADD_URL, LOGOUT, ERROR_URL, URLS_READY } from "../constants/action-types"
 
 import { fromJS } from 'immutable';
 
@@ -33,7 +33,16 @@ function rootReducer(state = initialState, action) {
     } else if (action.type === LOGIN_OK) {
         return state
             .set("logged", true)
-            .set("token", action.payload.token);
+            .set("token", action.payload);
+    } else if (action.type === LOGIN_OK) {
+        return state
+            .set("logged", true)
+            .set("token", action.payload);
+    } else if (action.type === LOGOUT) {
+        localStorage.setItem('TOKEN', "");
+        return state
+            .set("logged", false)
+            .set("token", "");
     } else if (action.type === LOGIN_FAIL) {
         return state
             .set("login_failed", true)
@@ -41,6 +50,12 @@ function rootReducer(state = initialState, action) {
     } else if (action.type === ADD_URL) {
         return state
             .set("urls", state.get("urls").push(action.payload));
+    } else if (action.type === ERROR_URL) {
+        return state
+            .set("error", action.payload);
+    } else if (action.type === URLS_READY) {
+        return state
+            .set("urls", action.payload);
     }
     return state;
 }

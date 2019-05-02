@@ -1,14 +1,14 @@
 import { createStore, applyMiddleware, compose } from "redux";
 
 import rootReducer from "../reducers";
-import { forbiddenWordsMiddleware } from "../middleware";
+import { forbiddenWordsMiddleware, manageToken } from "../middleware";
 import thunk from "redux-thunk";
 
 const storeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
     rootReducer,
-    storeEnhancers(applyMiddleware(forbiddenWordsMiddleware, thunk))
+    storeEnhancers(applyMiddleware(forbiddenWordsMiddleware, manageToken, thunk))
 );
 
 export default store;

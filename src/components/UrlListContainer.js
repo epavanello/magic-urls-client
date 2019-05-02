@@ -1,39 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import UrlList from "./UrlList";
+
 const mapStateToProps = state => {
     // Move to selectors.js and use rselect for performance (cache)
     return { urls: state.get("urls") };
 }
-/*
-class ConnectedList extends React.Component {
-    render() {
-        let { urls } = this.props;
-        // Render the content into a list item
-        return (
-            <ul className="list-group list-group-flush">
-                {urls.map(el => (
-                    <li className="list-group-item" key={el.id}>
-                        {el.title}
-                    </li>
-                ))
-                }
-            </ul>
-        );
-    }
-}
-//*/
-//* OR
-const ConnectedList = ({ urls }) => (
+
+const ConnectedUrlListContainer = ({ urls }) => (
     <div>
-        <ul className="list-group list-group-flush my-5">
-            {urls.map(el => (
-                <li className="list-group-item" key={el.id}>
-                    {el.url}
-                </li>
-            ))
-            }
-        </ul>
+        <UrlList urls={urls}></UrlList>
+
         <nav aria-label="Page navigation example">
             <ul className="pagination justify-content-center">
                 <li className="page-item">
@@ -55,8 +33,7 @@ const ConnectedList = ({ urls }) => (
         </nav>
     </div>
 );
-//*/
 
-const List = connect(mapStateToProps)(ConnectedList);
+const UrlListContainer = connect(mapStateToProps)(ConnectedUrlListContainer);
 
-export default List;
+export default UrlListContainer;

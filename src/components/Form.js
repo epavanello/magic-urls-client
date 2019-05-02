@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import uuidv1 from "uuid";
 
 import IconInput from "./IconInput";
 import { addUrl } from "../actions";
@@ -21,7 +20,7 @@ class ConnectedForm extends Component {
     constructor() {
         super();
         this.state = {
-            url: "",
+            address: "",
             alias: ""
         };
         this.handleChange = this.handleChange.bind(this);
@@ -32,16 +31,15 @@ class ConnectedForm extends Component {
     }
     handleSubmit(event) {
         event.preventDefault();
-        const { url, alias } = this.state;
-        const id = uuidv1();
-        this.props.addUrl({ url, alias, id });
-        this.setState({ url: "", alias: "" });
+        const { address, alias } = this.state;
+        this.props.addUrl({ address, alias });
+        this.setState({ address: "", alias: "" });
     }
     render() {
-        const { url, alias } = this.state;
+        const { address, alias } = this.state;
         return (
             <form onSubmit={this.handleSubmit} className="mt-5">
-                <IconInput label="Url" icon="fas fa-globe-europe" type="text" name="url" value={url} onChange={this.handleChange} required={true} autofocus={true} />
+                <IconInput label="Url" icon="fas fa-globe-europe" type="text" name="address" value={address} onChange={this.handleChange} required={true} autofocus={true} />
                 <IconInput label="Alias" icon="fas fa-bolt" type="text" name="alias" value={alias} onChange={this.handleChange} required={false} />
                 <div className="form-group text-center">
                     <input type="submit" className="btn btn-primary" value="Create" />
