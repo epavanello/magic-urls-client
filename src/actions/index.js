@@ -1,7 +1,11 @@
-import { ADD_TODO, FOUND_BAD_WORD, DATA_LOADED, LOGIN_OK, LOGIN_FAIL } from "../constants/action-types";
+import { ADD_TODO, FOUND_BAD_WORD, DATA_LOADED, LOGIN_OK, LOGIN_FAIL, ADD_URL } from "../constants/action-types";
 
 export function addTodo(payload) {
 	return { type: ADD_TODO, payload }
+};
+
+export function addUrl(payload) {
+	return { type: ADD_URL, payload }
 };
 
 export function foundBadWord() {

@@ -5,8 +5,6 @@ import { Redirect } from 'react-router-dom'
 import IconInput from "../../components/IconInput";
 import { login, loginFake } from "../../actions";
 
-import './Login.scss';
-
 function mapDispatchToProps(dispatch) {
     return {
         login: credentials => dispatch(login(credentials)),
@@ -50,12 +48,12 @@ class ConnectedLogin extends Component {
         return (
             <div className="container h-100">
                 <div className="row justify-content-center">
-                    <h1 className="title">Magic Urls</h1>
+                    <h1 className="site-title">Magic Urls</h1>
                 </div>
                 <div className="row">
-                    <div className="col-md-6 p-5 login-form">
-                        <h3>Login</h3>
-                        <form
+                    <div className="col-md-6 p-5 my-card">
+                        <h3 className="title text-center">Login</h3>
+                        <form className="mt-5"
                             action={this.props.action}
                             method={this.props.method}
                             onSubmit={this.handleLoginSubmit}>
@@ -84,9 +82,9 @@ class ConnectedLogin extends Component {
                             </div>
                         </form>
                     </div>
-                    <div className="col-md-6 p-5 signup-form">
-                        <h3>Sign up</h3>
-                        <form>
+                    <div className="col-md-6 p-5 my-card dark">
+                        <h3 className="title text-center">Sign up</h3>
+                        <form className="mt-5">
                             <IconInput label="Username" icon="fa fa-user" type="text" required={true} />
                             <IconInput label="Email" icon="fas fa-envelope" type="email" required={true} />
                             <IconInput label="Password" icon="fa fa-lock" type="password" required={true} />

@@ -29,6 +29,7 @@ class IconInput extends Component {
                         onChange={this.onFieldChange.bind(this)}
                         required={this.props.required}
                         autoFocus={this.props.autofocus}
+                        value={this.props.value}
                     />
                 </div>
             </div >
@@ -41,6 +42,7 @@ IconInput.propTypes = {
     type: PropTypes.string,
     label: PropTypes.string,
     name: PropTypes.string,
+    value: PropTypes.string,
     required: PropTypes.bool,
     autofocus: PropTypes.bool,
 };

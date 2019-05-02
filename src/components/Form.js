@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import uuidv1 from "uuid";
-import { addTodo } from "../actions";
+
+import IconInput from "./IconInput";
+import { addUrl } from "../actions";
+
 
 function mapDispatchToProps(dispatch) {
     return {
-        addTodo: todo => dispatch(addTodo(todo))
+        addUrl: todo => dispatch(addUrl(todo))
     };
 }
 
@@ -18,36 +21,31 @@ class ConnectedForm extends Component {
     constructor() {
         super();
         this.state = {
-            title: ""
+            url: "",
+            alias: ""
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleChange(event) {
-        this.setState({ [event.target.id]: event.target.value });
+    handleChange(fieldName, fieldValue) {
+        this.setState({ [fieldName]: fieldValue });
     }
     handleSubmit(event) {
         event.preventDefault();
-        const { title } = this.state;
+        const { url, alias } = this.state;
         const id = uuidv1();
-        this.props.addTodo({ title, id });
-        this.setState({ title: "" });
+        this.props.addUrl({ url, alias, id });
+        this.setState({ url: "", alias: "" });
     }
     render() {
-        const { title } = this.state;
+        const { url, alias } = this.state;
         return (
-            <form onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="title">Url</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="title"
-                        value={title}
-                        onChange={this.handleChange}
-                    />
+            <form onSubmit={this.handleSubmit} className="mt-5">
+                <IconInput label="Url" icon="fas fa-globe-europe" type="text" name="url" value={url} onChange={this.handleChange} required={true} autofocus={true} />
+                <IconInput label="Alias" icon="fas fa-bolt" type="text" name="alias" value={alias} onChange={this.handleChange} required={false} />
+                <div className="form-group text-center">
+                    <input type="submit" className="btn btn-primary" value="Create" />
                 </div>
-                <button type="submit" className="btn btn-success btn-lg">SAVE</button>
                 <p>{this.props.error}</p>
             </form>
         );

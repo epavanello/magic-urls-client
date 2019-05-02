@@ -4,9 +4,6 @@ import { connect } from "react-redux";
 import List from "../../components/List";
 import Form from "../../components/Form";
 
-
-import './Home.scss';
-
 const mapStateToProps = state => {
   return { logged: state.get("logged") };
 }
@@ -18,15 +15,15 @@ class ConnectedHome extends Component {
     return (
       <div className="container">
         <div className="row justify-content-center">
-          <h1 className="title">Magic Urls</h1>
+          <h1 className="site-title">Magic Urls</h1>
         </div>
         <div className="row">
           <div className="col-md-6 p-5 my-card">
-            <h2>Todos</h2>
+            <h3 className="title text-center">Urls</h3>
             <List />
           </div>
-          <div className="col-md-6 p-5 my-card">
-            <h2>Add new Url</h2>
+          <div className="col-md-6 p-5 my-card dark">
+            <h3 className="title text-center">add Url</h3>
             <Form />
           </div>
         </div>

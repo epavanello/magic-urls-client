@@ -1,9 +1,10 @@
-import { ADD_TODO, FOUND_BAD_WORD, DATA_LOADED, LOGIN_OK, LOGIN_FAIL } from "../constants/action-types"
+import { ADD_TODO, FOUND_BAD_WORD, DATA_LOADED, LOGIN_OK, LOGIN_FAIL, ADD_URL } from "../constants/action-types"
 
 import { fromJS } from 'immutable';
 
 const initialState = fromJS({
     todos: [],
+    urls: [],
     remoteArticles: [],
     error: "",
     logged: false,
@@ -24,6 +25,8 @@ function rootReducer(state = initialState, action) {
             .set("login_failed", false);
     } else if (action.type === LOGIN_FAIL) {
         return state.set("login_failed", true);
+    } else if (action.type === ADD_URL) {
+        return state.set("urls", state.get("urls").push(action.payload));
     }
     return state;
 }
