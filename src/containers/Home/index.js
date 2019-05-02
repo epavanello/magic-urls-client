@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+
+import List from "../../components/List";
+import Form from "../../components/Form";
 
 
 import './Home.scss';
-import Login from "../Login";
 
 const mapStateToProps = state => {
   return { logged: state.get("logged") };
@@ -15,12 +16,21 @@ class ConnectedHome extends Component {
   render() {
 
     return (
-      <Router>
-        <Route path="/" exact component={Login} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/home" component={Home} />
-      </Router>
-
+      <div className="container">
+        <div className="row justify-content-center">
+          <h1 className="title">Magic Urls</h1>
+        </div>
+        <div className="row">
+          <div className="col-md-6 p-5 my-card">
+            <h2>Todos</h2>
+            <List />
+          </div>
+          <div className="col-md-6 p-5 my-card">
+            <h2>Add new Url</h2>
+            <Form />
+          </div>
+        </div>
+      </div>
     );
   }
 }

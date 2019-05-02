@@ -1,17 +1,5 @@
 @import "../../styles/common";
 
-body,
-html,
-#root {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-body {
-  background-color: $contrast;
-}
-
 .title {
   color: $secondary;
   @extend .title;

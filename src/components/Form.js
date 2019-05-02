@@ -38,7 +38,7 @@ class ConnectedForm extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="title">Title</label>
+                    <label htmlFor="title">Url</label>
                     <input
                         type="text"
                         className="form-control"

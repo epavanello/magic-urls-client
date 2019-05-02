@@ -1,28 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
+import Login from "../../containers/Login";
+import Home from "../../containers/Home";
 
 import './App.scss';
-import Login from "../../containers/Login";
 
 const mapStateToProps = state => {
   return { logged: state.get("logged") };
 }
-
-
-class ConnectedHome extends Component {
-  render() {
-    if (!this.props.logged) {
-      return <Redirect to="/login" />;
-    }
-    return (
-      <p>Ciao</p>
-
-    );
-  }
-}
-const Home = connect(mapStateToProps)(ConnectedHome);
 
 
 class ConnectedApp extends Component {

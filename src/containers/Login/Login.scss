@@ -1,20 +1,21 @@
-@import '../../styles/common';
+@import "../../styles/common";
 
-.login-form, .signup-form{
-    background-color: $white;
-    @extend .card;
+.login-form,
+.signup-form {
+  background-color: $white;
+  @extend .my-card;
 
-    h3 {
-        text-align: center;
-        @extend .title;
-    }
+  h3 {
+    text-align: center;
+    @extend .title;
+  }
 
-    form {
-        margin-top: 50px;
-    }
+  form {
+    margin-top: 50px;
+  }
 }
 
 .signup-form {
-    background: $primary-darker;
-    color: $white;
+  background: $primary-darker;
+  color: $white;
 }

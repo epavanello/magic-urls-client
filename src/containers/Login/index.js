@@ -49,7 +49,7 @@ class ConnectedLogin extends Component {
         }
         return (
             <div className="container h-100">
-                <div className="row  justify-content-center">
+                <div className="row justify-content-center">
                     <h1 className="title">Magic Urls</h1>
                 </div>
                 <div className="row">

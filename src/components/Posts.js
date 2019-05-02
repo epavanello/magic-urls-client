@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { getData } from "../actions";
 
-export class Post extends Component {
+export class Posts extends Component {
     componentDidMount() {
         this.props.getData();
     }
@@ -18,16 +18,16 @@ export class Post extends Component {
                 }
             </ul>
         );
-      }
+    }
 }
 
 function mapStateToProps(state) {
-  return {
-    articles: state.get("remoteArticles").slice(0, 10)
-  };
+    return {
+        articles: state.get("remoteArticles").slice(0, 10)
+    };
 }
 
 export default connect(
     mapStateToProps,
     { getData }
-  )(Post);
+)(Posts);
