@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 
 import UrlListContainer from "../../components/UrlListContainer";
 import Form from "../../components/Form";
-import { loadUrls } from '../../actions';
+import { loadUrls } from '../../actions/urlsActions';
 
 const mapStateToProps = state => {
-  return { logged: state.get("logged") };
+  return { logged: state.get("auth").get("logged") };
 }
 
 function mapDispatchToProps(dispatch) {

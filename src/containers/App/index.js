@@ -8,7 +8,7 @@ import Home from "../../containers/Home";
 import './App.scss';
 
 const mapStateToProps = state => {
-  return { logged: state.get("logged") };
+  return { logged: state.get("auth").get("logged") };
 }
 
 

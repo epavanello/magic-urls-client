@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from 'react-router-dom'
 
 import IconInput from "../../components/IconInput";
-import { login } from "../../actions";
+import { login } from "../../actions/authActions";
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -14,9 +14,9 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = state => {
     // Move to selectors.js and use rselect for performance (cache)
     return {
-        logged: state.get("logged"),
-        login_failed: state.get("login_failed"),
-        login_fail_message: state.get("login_fail_message")
+        logged: state.get("auth").get("logged"),
+        login_failed: state.get("auth").get("login_failed"),
+        login_fail_message: state.get("auth").get("login_fail_message")
     };
 }
 

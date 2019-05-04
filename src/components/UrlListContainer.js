@@ -5,7 +5,7 @@ import UrlList from "./UrlList";
 
 const mapStateToProps = state => {
     // Move to selectors.js and use rselect for performance (cache)
-    return { urls: state.get("urls") };
+    return { urls: state.get("urls").get("items") };
 }
 
 const ConnectedUrlListContainer = ({ urls }) => (

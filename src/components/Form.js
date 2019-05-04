@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import IconInput from "./IconInput";
-import { addUrl } from "../actions";
+import { addUrl } from "../actions/urlsActions";
 
 
 function mapDispatchToProps(dispatch) {
@@ -13,7 +13,7 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = state => {
     // Move to selectors.js and use rselect for performance (cache)
-    return { error: state.get("error") };
+    return { error: state.get("auth").get("error") };
 }
 
 class ConnectedForm extends Component {

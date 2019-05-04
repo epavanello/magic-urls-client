@@ -30,6 +30,7 @@
     "cross-env": "^5.2.0",
     "react-redux": "^7.0.2",
     "redux": "^4.0.1",
+    "redux-immutable": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "uuid": "^3.3.2"
   }
