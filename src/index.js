@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './styles/index.scss';
 
 
-window.store = store;
+// window.store = store;
 
 store.dispatch({ type: ON_INIT });
 
