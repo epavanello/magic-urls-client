@@ -29,7 +29,7 @@ class ConnectedHome extends Component {
         <div className="row justify-content-center">
           <h1 className="site-title">Magic Urls</h1>
         </div>
-        <div className="row">
+        <div className="row align-items-start">
           <div className="col-md-6 p-5 my-card">
             <h3 className="title text-center">Urls</h3>
             <UrlListContainer />

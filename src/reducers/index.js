@@ -1,11 +1,9 @@
-import { ADD_TODO, FOUND_BAD_WORD, DATA_LOADED, LOGIN_START, LOGIN_OK, LOGIN_FAIL, ADD_URL, LOGOUT, ERROR_URL, URLS_READY } from "../constants/action-types"
+import { LOGIN_START, LOGIN_OK, LOGIN_FAIL, ADD_URL, LOGOUT, ERROR_URL, URLS_READY } from "../constants/action-types"
 
 import { fromJS } from 'immutable';
 
 const initialState = fromJS({
-    todos: [],
     urls: [],
-    remoteArticles: [],
     error: "",
     logged: false,
     token: "",
@@ -14,17 +12,7 @@ const initialState = fromJS({
 });
 
 function rootReducer(state = initialState, action) {
-    if (action.type === ADD_TODO) {
-        return state
-            .set("todos", state.get("todos").push(action.payload))
-            .set("error", "");
-    } else if (action.type === FOUND_BAD_WORD) {
-        return state
-            .set("error", "Todo contains bad words");
-    } else if (action.type === DATA_LOADED) {
-        return state
-            .set("remoteArticles", action.payload);
-    } else if (action.type === LOGIN_START) {
+    if (action.type === LOGIN_START) {
         return state
             .set("logged", false)
             .set("token", "")
@@ -34,12 +22,7 @@ function rootReducer(state = initialState, action) {
         return state
             .set("logged", true)
             .set("token", action.payload);
-    } else if (action.type === LOGIN_OK) {
-        return state
-            .set("logged", true)
-            .set("token", action.payload);
     } else if (action.type === LOGOUT) {
-        localStorage.setItem('TOKEN', "");
         return state
             .set("logged", false)
             .set("token", "");
@@ -48,8 +31,7 @@ function rootReducer(state = initialState, action) {
             .set("login_failed", true)
             .set("login_fail_message", action.payload);
     } else if (action.type === ADD_URL) {
-        return state
-            .set("urls", state.get("urls").push(action.payload));
+        return state.updateIn(["urls"], urls => urls.concat([action.payload]));
     } else if (action.type === ERROR_URL) {
         return state
             .set("error", action.payload);
