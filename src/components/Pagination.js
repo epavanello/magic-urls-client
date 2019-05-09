@@ -1,51 +1,73 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-
+const PageItem = props =>
+    <li className={"page-item" + (props.disabled ? " disabled" : "") + (props.active ? " active" : "")}>
+        <a className="page-link" href={"#" + (props.page || props.children)} aria-label={props.label} onClick={() => props.onClick(props.page)}>
+            {props.label ?
+                <span aria-hidden="true">{props.children}</span>
+                :
+                props.children
+            }
+            {props.active &&
+                <span className="sr-only">(current)</span>
+            }
+        </a>
+    </li>
 
 class Pagination extends Component {
+    constructor() {
+        super();
 
+        this.state = {
+            currentPage: 1
+        };
+    }
     getPagesCount = () => {
-        console.log(this.props.items);
-        console.log(this.props.itemsPerPage);
-
-        return (this.props.items / this.props.itemsPerPage) || 0;
+        let pages = Math.ceil(this.props.children.length / this.props.itemsPerPage) || 0;
+        return pages;
     };
-
+    getLastPage = () => {
+        return 1;
+    };
+    goToPage = (page) => {
+        this.setState({ currentPage: page });
+    };
     render() {
+        let children = this.props.children;
+        let start = this.props.itemsPerPage * (this.state.currentPage - 1);
+        let filtered = children.slice(start, start + this.props.itemsPerPage);
         return (
-            <nav aria-label="Page navigation example">
-                <ul className="pagination justify-content-center">
-                    <li className="page-item">
-                        <a className="page-link" href="/" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span className="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    {
-                        [...Array(this.getPagesCount())].map((e, i) => <li className="page-item" key={i}><a className="page-link" href="/">{i + 1}</a></li>)
-                    }
-                    <li className="page-item">
-                        <a className="page-link" href="/" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span className="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <div>
+                {filtered}
+                <nav aria-label="Page navigation example">
+                    <ul className="pagination justify-content-center">
+                        <PageItem disabled={this.state.currentPage == 1} label="Previous">&laquo;</PageItem>
+                        {
+                            [...Array(this.getPagesCount())].map((e, i) =>
+                                <PageItem key={i} active={i + 1 === this.state.currentPage} onClick={this.goToPage} page={i + 1}>{i + 1}</PageItem>
+                            )
+                        }
+                        <PageItem disabled={false} label="Next" onClick={this.goToPage} page={this.getLastPage()}>&raquo;</PageItem>
+                    </ul>
+                </nav>
+            </div>
+
         );
     }
 }
 
 
-
 Pagination.propTypes = {
-    items: PropTypes.number.isRequired,
-    itemsPerPage: PropTypes.number
+    itemsPerPage: PropTypes.number,
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ]).isRequired
 };
 
 Pagination.defaultProps = {
-    itemsPerPage: 1
+    itemsPerPage: 5
 };
 
 export default Pagination;

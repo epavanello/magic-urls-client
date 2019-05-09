@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import UrlList from "./UrlList";
+import UrlListItem from "./UrlListItem";
 import Pagination from "./Pagination";
 
 const mapStateToProps = state => {
@@ -11,9 +11,13 @@ const mapStateToProps = state => {
 
 const ConnectedUrlListContainer = ({ urls }) => (
     <div>
-        <UrlList urls={urls}></UrlList>
-
-        <Pagination items={urls.length || 0} />
+        <ul className="list-group list-group-flush my-5">
+            <Pagination itemsPerPage={2}>
+                {urls.map(el => (
+                    <UrlListItem key={el.id} address={el.address} alias={el.alias} />
+                ))}
+            </Pagination>
+        </ul>
     </div>
 );
 
