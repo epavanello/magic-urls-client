@@ -10,15 +10,11 @@ const mapStateToProps = state => {
 }
 
 const ConnectedUrlListContainer = ({ urls }) => (
-    <div>
-        <ul className="list-group list-group-flush my-5">
-            <Pagination itemsPerPage={2}>
-                {urls.map(el => (
-                    <UrlListItem key={el.id} address={el.address} alias={el.alias} />
-                ))}
-            </Pagination>
-        </ul>
-    </div>
+    <Pagination itemsPerPage={5} maxButtons={5} container={<ul className="list-group list-group-flush my-5" />}>
+        {urls.map(el => (
+            <UrlListItem key={el.id} address={el.address} alias={el.alias} />
+        ))}
+    </Pagination>
 );
 
 const UrlListContainer = connect(mapStateToProps)(ConnectedUrlListContainer);

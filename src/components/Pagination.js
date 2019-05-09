@@ -27,9 +27,6 @@ class Pagination extends Component {
         let pages = Math.ceil(this.props.children.length / this.props.itemsPerPage) || 0;
         return pages;
     };
-    getLastPage = () => {
-        return 1;
-    };
     goToPage = (page) => {
         this.setState({ currentPage: page });
     };
@@ -37,18 +34,32 @@ class Pagination extends Component {
         let children = this.props.children;
         let start = this.props.itemsPerPage * (this.state.currentPage - 1);
         let filtered = children.slice(start, start + this.props.itemsPerPage);
+        let view = React.cloneElement(this.props.container, null, filtered);
+
+
+        let buttonItems = Array.from(Array(this.getPagesCount()).keys()).map(i => i + 1);
+        console.log("buttonItems", buttonItems);
+
+        let startIndex = Math.max(0, this.state.currentPage - Math.ceil(this.props.maxButtons / 2));
+        console.log("startIndex", startIndex);
+
+        let visibleButtons = Math.min(this.getPagesCount(), this.props.maxButtons);
+        console.log("visibleButtons", visibleButtons);
+
+        let buttonsToShow = buttonItems.slice(startIndex, startIndex + visibleButtons);
+        console.log("buttonsToShow", buttonsToShow);
         return (
             <div>
-                {filtered}
+                {view}
                 <nav aria-label="Page navigation example">
                     <ul className="pagination justify-content-center">
-                        <PageItem disabled={this.state.currentPage == 1} label="Previous">&laquo;</PageItem>
+                        <PageItem disabled={this.state.currentPage === 1} label="Previous" onClick={this.goToPage} page={this.state.currentPage - 1}>&laquo;</PageItem>
                         {
-                            [...Array(this.getPagesCount())].map((e, i) =>
-                                <PageItem key={i} active={i + 1 === this.state.currentPage} onClick={this.goToPage} page={i + 1}>{i + 1}</PageItem>
+                            buttonsToShow.map((i) =>
+                                <PageItem key={i} active={i === this.state.currentPage} onClick={this.goToPage} page={i}>{i}</PageItem>
                             )
                         }
-                        <PageItem disabled={false} label="Next" onClick={this.goToPage} page={this.getLastPage()}>&raquo;</PageItem>
+                        <PageItem disabled={this.state.currentPage === this.getPagesCount()} label="Next" onClick={this.goToPage} page={this.state.currentPage + 1}>&raquo;</PageItem>
                     </ul>
                 </nav>
             </div>
@@ -57,9 +68,10 @@ class Pagination extends Component {
     }
 }
 
-
 Pagination.propTypes = {
     itemsPerPage: PropTypes.number,
+    maxButtons: PropTypes.number,
+    container: PropTypes.node,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
@@ -67,7 +79,9 @@ Pagination.propTypes = {
 };
 
 Pagination.defaultProps = {
-    itemsPerPage: 5
+    itemsPerPage: 5,
+    maxButtons: 5
+
 };
 
 export default Pagination;
