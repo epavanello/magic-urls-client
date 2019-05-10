@@ -36,18 +36,17 @@ class Pagination extends Component {
         let filtered = children.slice(start, start + this.props.itemsPerPage);
         let view = React.cloneElement(this.props.container, null, filtered);
 
-
-        let buttonItems = Array.from(Array(this.getPagesCount()).keys()).map(i => i + 1);
-        console.log("buttonItems", buttonItems);
-
+        let pageCount = this.getPagesCount();
+        let buttonItems = Array.from(Array(pageCount).keys()).map(i => i + 1);
         let startIndex = Math.max(0, this.state.currentPage - Math.ceil(this.props.maxButtons / 2));
-        console.log("startIndex", startIndex);
+        let visibleButtons = Math.min(pageCount, this.props.maxButtons);
+        let endIndex = startIndex + visibleButtons;
+        if (endIndex > pageCount) {
+            startIndex += pageCount - endIndex;
+            endIndex = pageCount;
+        }
+        let buttonsToShow = buttonItems.slice(startIndex, endIndex);
 
-        let visibleButtons = Math.min(this.getPagesCount(), this.props.maxButtons);
-        console.log("visibleButtons", visibleButtons);
-
-        let buttonsToShow = buttonItems.slice(startIndex, startIndex + visibleButtons);
-        console.log("buttonsToShow", buttonsToShow);
         return (
             <div>
                 {view}
