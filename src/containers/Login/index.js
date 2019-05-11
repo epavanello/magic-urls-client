@@ -88,10 +88,10 @@ class ConnectedLogin extends Component {
                     <div className="col-md-6 p-5 my-card dark">
                         <h3 className="title text-center">Sign up</h3>
                         <form className="mt-5">
-                            <IconInput label="Username" icon="fa fa-user" type="text" required={true} />
-                            <IconInput label="Email" icon="fas fa-envelope" type="email" required={true} />
-                            <IconInput label="Password" icon="fa fa-lock" type="password" required={true} />
-                            <IconInput label="Conferma password" icon="fa fa-lock" type="password" required={true} />
+                            <IconInput label="Username" icon="fa fa-user fa-fw" type="text" required={true} />
+                            <IconInput label="Email" icon="fas fa-envelope fa-fw" type="email" required={true} />
+                            <IconInput label="Password" icon="fa fa-lock fa-fw" type="password" required={true} />
+                            <IconInput label="Conferma password" icon="fa fa-lock fa-fw" type="password" required={true} />
 
                             <div className="form-group text-center">
                                 <input type="submit" className="btn btn-primary" value="Sign up" />

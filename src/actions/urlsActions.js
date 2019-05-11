@@ -20,6 +20,7 @@ export const addUrl = payload => (dispatch, getState) => {
 		})
 		.then(json => {
 			dispatch({ type: ADD_URL, payload: json });
+			return json;
 		}).catch(e => {
 			dispatch({ type: ERROR_URL, payload: e.message });
 		});

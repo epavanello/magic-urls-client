@@ -18,6 +18,7 @@ function mapDispatchToProps(dispatch) {
 
 class ConnectedHome extends Component {
   componentDidMount() {
+    console.log("Mount");
     this.props.loadUrls();
   }
   render() {
