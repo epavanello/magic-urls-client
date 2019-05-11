@@ -1,4 +1,4 @@
-import { ADD_URL, ERROR_URL, URLS_READY } from "../constants/action-types";
+import { ADD_URL, ERROR_URL, URLS_READY, URL_DELETED } from "../constants/action-types";
 
 export const addUrl = payload => (dispatch, getState) => {
 	return fetch("http://localhost:8000/api/urls/", {
@@ -38,12 +38,40 @@ export const loadUrls = () => (dispatch, getState) => {
 			if (response.ok) {
 				return response.json();
 			}
+			// Convert to json to get error
 			return response.json().then(json => {
 				throw new Error(json.message);
 			});
 		})
 		.then(json => {
 			dispatch({ type: URLS_READY, payload: json });
+		}).catch(e => {
+			dispatch({ type: ERROR_URL, payload: e.message });
+		});
+}
+
+
+export const deleteUrl = (id) => (dispatch, getState) => {
+	return fetch("http://localhost:8000/api/urls/" + id, {
+		method: "DELETE",
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+			'Authorization': getState().get("auth").get("token")
+		}
+	})
+		.then(response => {
+			if (response.ok) {
+				dispatch({ type: URL_DELETED, payload: id });
+			} else {
+				// Convert to json to get error
+				return response.json().then(json => {
+					throw new Error(json.message);
+				});
+			}
+		})
+		.then(json => {
+			dispatch({ type: URL_DELETED, payload: id });
 		}).catch(e => {
 			dispatch({ type: ERROR_URL, payload: e.message });
 		});

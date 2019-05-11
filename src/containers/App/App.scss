@@ -12,3 +12,25 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.alias-url {
+  cursor: pointer;
+
+  .copy-icon {
+    transition: opacity 0.5s ease-out;
+    opacity: 0.4;
+  }
+  &:hover {
+    .copy-icon {
+      opacity: 1;
+    }
+  }
+}
+
+.fab,
+.fas,
+.far,
+.fal,
+.fa {
+  vertical-align: middle;
+}

@@ -9,7 +9,7 @@ const Form = () => {
     let [address, setAddress] = useState('');
     let [alias, setAlias] = useState('');
 
-    const error = useSelector(state => state.get("urls").get("error"))
+    const error = useSelector(state => state.get("urls").get("error"));
     const dispatch = useDispatch();
 
     const handleSubmit = (event) => {

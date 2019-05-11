@@ -7,6 +7,7 @@ export const LOGOUT = "LOGOUT";
 
 
 export const ADD_URL = "ADD_URL";
+export const URL_DELETED = "URL_DELETED";
 export const URLS_READY = "URLS_READY";
 
 export const ERROR_URL = "ERROR_URL";

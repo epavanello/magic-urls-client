@@ -1,14 +1,38 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { deleteUrl } from "../actions/urlsActions";
 
-const UrlListItem = props =>
-    <li className="list-group-item list-group-item-action flex-column align-items-start" key={props.id}>
-        <div className="d-flex w-100 justify-content-end align-items-center">
-            <button type="button" className="btn btn-primary btn-sm" title="Copy"><i class="far fa-copy"></i></button>
-            <span className="ml-1 font-weight-bold flex-fill">{props.alias}</span>
-            <span>4 views <i className="far fa-eye"></i></span>
-        </div>
-        <a href={props.address} target="_blank" rel="noopener noreferrer" className="font-italic text-monospace text-truncate">{props.address}</a>
+const UrlListItem = (props) => {
+    const dispatch = useDispatch();
 
-    </li>
+    function handleDeleteClicl() {
+        dispatch(deleteUrl(props.id));
+    }
+
+    function copyUrl() {
+        var inp = document.createElement('input');
+        document.body.appendChild(inp);
+        inp.value = props.alias;
+        inp.select();
+        document.execCommand('copy', false);
+        inp.remove();
+    }
+
+    return (
+        <li className="list-group-item flex-column align-items-start" key={props.id}>
+
+            <div className="d-flex w-100 justify-content-between align-items-center">
+                <span className="font-weight-bold alias-url flex-fill">{props.alias} <i className="far fa-copy copy-icon" title="Copy" onClick={copyUrl}></i></span>
+                <button type="button" className="close" aria-label="Close" onClick={handleDeleteClicl}>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div className="d-flex w-100 justify-content-between align-items-center">
+                <small><a href={props.address} target="_blank" rel="noopener noreferrer" className="font-italic text-monospace text-truncate">{props.address}</a></small>
+                <small>4 views <i className="far fa-eye"></i></small>
+            </div>
+        </li>
+    );
+}
 
 export default UrlListItem;

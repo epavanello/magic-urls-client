@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 const PageItem = ({ disabled, active, page, children, label, onClick }) =>
@@ -25,7 +25,7 @@ function Pagination(props) {
         return pages;
     }
 
-    if (props.children.length == 0) {
+    if (props.children.length === 0) {
         return (
             <p>No urls yet</p>
         );

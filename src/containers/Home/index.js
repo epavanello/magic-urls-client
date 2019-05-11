@@ -31,11 +31,11 @@ class ConnectedHome extends Component {
           <h1 className="site-title">Magic Urls</h1>
         </div>
         <div className="row align-items-start">
-          <div className="col-md-6 p-5 my-card">
+          <div className="col-md-6 p-5 my-card order-2 order-md-1">
             <h3 className="title text-center">Urls</h3>
             <UrlListContainer />
           </div>
-          <div className="col-md-6 p-5 my-card dark">
+          <div className="col-md-6 p-5 my-card dark order-1 order-md-2">
             <h3 className="title text-center">add Url</h3>
             <Form />
           </div>
