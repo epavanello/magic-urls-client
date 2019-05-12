@@ -23,7 +23,7 @@ class ConnectedHome extends Component {
   }
   render() {
     if (!this.props.logged) {
-      return <Redirect to="/login" />;
+      return <Redirect to="/login" />
     }
     return (
       <div className="container">

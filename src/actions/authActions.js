@@ -26,6 +26,31 @@ export const login = payload => dispatch => {
 		});
 }
 
+export const signup = payload => dispatch => {
+	dispatch({ type: LOGIN_START });
+	return fetch("http://localhost:8000/api/auth/signup", {
+		method: 'POST',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ ...payload })
+	})
+		.then(response => {
+			if (response.ok) {
+				return response.json();
+			}
+			return response.json().then(json => {
+				throw new Error(json.message);
+			});
+		})
+		.then(json => {
+			dispatch({ type: LOGIN_OK, payload: json.token });
+		}).catch(e => {
+			dispatch({ type: LOGIN_FAIL, payload: e.message });
+		});
+}
+
 export const checkToken = token => dispatch => {
 	return fetch("http://localhost:8000/api/users/me", {
 		headers: {
