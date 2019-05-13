@@ -1,4 +1,4 @@
-import { LOGIN_START, LOGIN_OK, LOGIN_FAIL, LOGOUT } from "../constants/action-types";
+import { LOGIN_START, LOGIN_OK, LOGIN_FAIL, LOGOUT, SIGNUP_OK, SIGNUP_FAIL } from "../constants/action-types";
 
 
 export const login = payload => dispatch => {
@@ -27,7 +27,6 @@ export const login = payload => dispatch => {
 }
 
 export const signup = payload => dispatch => {
-	dispatch({ type: LOGIN_START });
 	return fetch("http://localhost:8000/api/auth/signup", {
 		method: 'POST',
 		headers: {
@@ -38,16 +37,17 @@ export const signup = payload => dispatch => {
 	})
 		.then(response => {
 			if (response.ok) {
-				return response.json();
+				return response.json().then(json => {
+					dispatch({ type: SIGNUP_OK });
+					return json;
+				});
+			} else {
+				return response.json().then(json => {
+					throw new Error(json.message);
+				});
 			}
-			return response.json().then(json => {
-				throw new Error(json.message);
-			});
-		})
-		.then(json => {
-			dispatch({ type: LOGIN_OK, payload: json.token });
 		}).catch(e => {
-			dispatch({ type: LOGIN_FAIL, payload: e.message });
+			dispatch({ type: SIGNUP_FAIL, payload: e.message });
 		});
 }
 

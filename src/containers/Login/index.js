@@ -18,6 +18,9 @@ const Login = (props) => {
     const logged = useSelector(state => state.get("auth").get("logged"));
     const login_failed = useSelector(state => state.get("auth").get("login_failed"));
     const login_fail_message = useSelector(state => state.get("auth").get("login_fail_message"));
+    const signup_failed = useSelector(state => state.get("auth").get("signup_failed"));
+    const signup_fail_message = useSelector(state => state.get("auth").get("signup_fail_message"));
+    const signup_ok = useSelector(state => state.get("auth").get("signup_ok"));
 
     const dispatch = useDispatch();
 
@@ -28,7 +31,14 @@ const Login = (props) => {
 
     function handleSignupSubmit(event) {
         event.preventDefault();
-        dispatch(signup({ username: singupUsername, email: singupEmail, password: singupPassword, cpassword: singupCPassword }));
+        dispatch(signup({ username: singupUsername, email: singupEmail, password: singupPassword, cpassword: singupCPassword })).then(u => {
+            if (u) {
+                setSingUpUsername("");
+                setSingUpEmail("");
+                setSingUpPassword("");
+                setSingUpCPassword("");
+            }
+        });
     }
 
     if (logged) {
@@ -85,6 +95,16 @@ const Login = (props) => {
                             value={singupPassword} onChange={(name, value) => setSingUpPassword(value)} />
                         <IconInput label="Conferma password" icon="fa fa-lock fa-fw" type="password" required={true}
                             value={singupCPassword} onChange={(name, value) => setSingUpCPassword(value)} />
+                        {signup_failed &&
+                            <div className="alert alert-warning" role="alert">
+                                {signup_fail_message}
+                            </div>
+                        }
+                        {signup_ok &&
+                            <div className="alert alert-primary" role="alert">
+                                Registrarion complete
+                            </div>
+                        }
 
                         <div className="form-group text-center">
                             <input type="submit" className="btn btn-primary" value="Sign up" />

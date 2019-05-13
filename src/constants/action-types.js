@@ -5,6 +5,8 @@ export const LOGIN_OK = "LOGIN_OK";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
 
+export const SIGNUP_OK = "SIGNUP_OK";
+export const SIGNUP_FAIL = "SIGNUP_FAIL";
 
 export const ADD_URL = "ADD_URL";
 export const URL_DELETED = "URL_DELETED";
