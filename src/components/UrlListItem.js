@@ -12,7 +12,7 @@ const UrlListItem = (props) => {
     function copyUrl() {
         var inp = document.createElement('input');
         document.body.appendChild(inp);
-        inp.value = props.alias;
+        inp.value = 'http://localhost:8000/go/' + props.alias;
         inp.select();
         document.execCommand('copy', false);
         inp.remove();
@@ -29,7 +29,7 @@ const UrlListItem = (props) => {
             </div>
             <div className="d-flex w-100 justify-content-between align-items-center">
                 <small><a href={props.address} target="_blank" rel="noopener noreferrer" className="font-italic text-monospace text-truncate">{props.address}</a></small>
-                <small>4 views <i className="far fa-eye"></i></small>
+                <small>{props.views} views <i className="far fa-eye"></i></small>
             </div>
         </li>
     );

@@ -29,10 +29,15 @@ const Form = () => {
                 onChange={(name, value) => setAddress(value)} required={true} autofocus={true} />
             <IconInput label="Alias" icon="fas fa-bolt fa-fw" type="text" name="alias" value={alias}
                 onChange={(name, value) => setAlias(value)} required={false} />
+            <p></p>
+            {error &&
+                <div className="alert alert-warning" role="alert">
+                    {error}
+                </div>
+            }
             <div className="form-group text-center">
                 <input type="submit" className="btn btn-primary" value="Create" />
             </div>
-            <p>{error}</p>
         </form>
     )
 };

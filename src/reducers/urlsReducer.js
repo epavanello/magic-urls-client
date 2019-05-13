@@ -10,7 +10,8 @@ const urlsState = fromJS({
 export default function(state = urlsState, action) {
     switch (action.type) {
         case ADD_URL:
-            return state.updateIn(["items"], items => items.concat([action.payload]));
+            return state.set("error", "")
+                .updateIn(["items"], items => items.concat([action.payload]));
         case URL_DELETED:
             return state.updateIn(['items'], urls =>
                 urls.filter(url => url.id !== action.payload)
