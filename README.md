@@ -1,9 +1,18 @@
 ## what is this
+ # Url shortener application
 
-Sources of an url shortener application made with react and redux.
 
+## Tecnologies
+- [x] ES6
+- [x] React
+- [x] Redux
+- [x] Redux-Thunk
+- [x] ImmutableJS
+
+---
 **Try online**
 [codesandbox.io](https://codesandbox.io/s/github/epavanello/magic-urls-client)
 
-___
+---
+
 *Currently server isn't published*
