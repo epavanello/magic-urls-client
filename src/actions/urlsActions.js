@@ -1,4 +1,4 @@
-import { ADD_URL, ERROR_URL, URLS_READY, URL_DELETED } from "../constants/action-types";
+import { ADD_URL, URL_LIST_ERROR, URL_POST_ERROR, URLS_READY, URL_DELETED } from "../constants/action-types";
 
 export const addUrl = payload => (dispatch, getState) => {
 	return fetch("http://localhost:8000/api/urls/", {
@@ -22,7 +22,7 @@ export const addUrl = payload => (dispatch, getState) => {
 			dispatch({ type: ADD_URL, payload: json });
 			return json;
 		}).catch(e => {
-			dispatch({ type: ERROR_URL, payload: e.message });
+			dispatch({ type: URL_POST_ERROR, payload: e.message });
 		});
 }
 
@@ -46,7 +46,7 @@ export const loadUrls = () => (dispatch, getState) => {
 		.then(json => {
 			dispatch({ type: URLS_READY, payload: json });
 		}).catch(e => {
-			dispatch({ type: ERROR_URL, payload: e.message });
+			dispatch({ type: URL_LIST_ERROR, payload: e.message });
 		});
 }
 
@@ -73,7 +73,7 @@ export const deleteUrl = (id) => (dispatch, getState) => {
 		.then(json => {
 			dispatch({ type: URL_DELETED, payload: id });
 		}).catch(e => {
-			dispatch({ type: ERROR_URL, payload: e.message });
+			dispatch({ type: URL_LIST_ERROR, payload: e.message });
 		});
 }
 

@@ -49,8 +49,8 @@ function Pagination(props) {
     return (
         <div>
             {view}
-            <nav aria-label="Page navigation example">
-                <ul className="pagination justify-content-center">
+            <nav aria-label="Urls navigation">
+                <ul className="pagination justify-content-center mt-3">
                     <PageItem disabled={currentPage === 1} label="Previous" onClick={setCurrentPage} page={currentPage - 1}>&laquo;</PageItem>
                     {
                         buttonsToShow.map((i) =>

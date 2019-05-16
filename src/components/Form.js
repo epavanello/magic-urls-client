@@ -9,7 +9,7 @@ const Form = () => {
     let [address, setAddress] = useState('');
     let [alias, setAlias] = useState('');
 
-    const error = useSelector(state => state.get("urls").get("error"));
+    const post_error = useSelector(state => state.get("urls").get("post_error"));
     const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
@@ -29,10 +29,9 @@ const Form = () => {
                 onChange={(name, value) => setAddress(value)} required={true} autofocus={true} />
             <IconInput label="Alias" icon="fas fa-bolt fa-fw" type="text" name="alias" value={alias}
                 onChange={(name, value) => setAlias(value)} required={false} />
-            <p></p>
-            {error &&
+            {post_error &&
                 <div className="alert alert-warning" role="alert">
-                    {error}
+                    {post_error}
                 </div>
             }
             <div className="form-group text-center">

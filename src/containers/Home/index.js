@@ -1,50 +1,45 @@
-import React, { Component } from 'react';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from 'react-router-dom'
-import { connect } from "react-redux";
 
 import UrlListContainer from "../../components/UrlListContainer";
 import Form from "../../components/Form";
 import { loadUrls } from '../../actions/urlsActions';
 
-const mapStateToProps = state => {
-  return { logged: state.get("auth").get("logged") };
-}
+function Home() {
+	const logged = useSelector(state => state.get("auth").get("logged"));
+	const list_error = useSelector(state => state.get("urls").get("list_error"));
+	const dispatch = useDispatch();
 
-function mapDispatchToProps(dispatch) {
-  return {
-    loadUrls: todo => dispatch(loadUrls())
-  };
-}
+	useEffect(() => {
+		dispatch(loadUrls());
+	}, []);
 
-class ConnectedHome extends Component {
-  componentDidMount() {
-    console.log("Mount");
-    this.props.loadUrls();
-  }
-  render() {
-    if (!this.props.logged) {
-      return <Redirect to="/login" />
-    }
-    return (
-      <div className="container">
-        <div className="row justify-content-center">
-          <h1 className="site-title">Magic Urls</h1>
-        </div>
-        <div className="row align-items-start">
-          <div className="col-md-6 p-5 my-card order-2 order-md-1">
-            <h3 className="title text-center">Urls</h3>
-            <UrlListContainer />
-          </div>
-          <div className="col-md-6 p-5 my-card dark order-1 order-md-2">
-            <h3 className="title text-center">add Url</h3>
-            <Form />
-          </div>
-        </div>
-      </div>
-    );
-  }
+	if (!logged) {
+		return <Redirect to="/login" />
+	}
+	return (
+		<div className="container">
+			<div className="row justify-content-center">
+				<h1 className="site-title">Magic Urls</h1>
+			</div>
+			<div className="row align-items-start">
+				<div className="col-md-6 p-5 my-card order-2 order-md-1">
+					<h3 className="title text-center">Urls</h3>
+					<UrlListContainer />
+					{list_error &&
+						<div className="alert alert-warning" role="alert">
+							{list_error}
+						</div>
+					}
+				</div>
+				<div className="col-md-6 p-5 my-card dark order-1 order-md-2">
+					<h3 className="title text-center">add Url</h3>
+					<Form />
+				</div>
+			</div>
+		</div>
+	);
 }
-
-const Home = connect(mapStateToProps, mapDispatchToProps)(ConnectedHome);
 
 export default Home;

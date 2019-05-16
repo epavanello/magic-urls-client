@@ -9,7 +9,7 @@ const ListContainer = () => {
     const urls = useSelector(state => state.get("urls").get("items"))
 
     return (
-        <Pagination itemsPerPage={5} maxButtons={5} container={<ul className="list-group my-5" />}>
+        <Pagination itemsPerPage={5} maxButtons={5} container={<ul className="list-group mt-5" />}>
             {urls.map(el => (
                 <UrlListItem key={el.id} {...el} />
             ))}

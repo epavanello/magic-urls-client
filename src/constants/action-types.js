@@ -12,4 +12,5 @@ export const ADD_URL = "ADD_URL";
 export const URL_DELETED = "URL_DELETED";
 export const URLS_READY = "URLS_READY";
 
-export const ERROR_URL = "ERROR_URL";
+export const URL_POST_ERROR = "URL_POST_ERROR";
+export const URL_LIST_ERROR = "URL_LIST_ERROR";
