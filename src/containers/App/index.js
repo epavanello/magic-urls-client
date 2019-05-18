@@ -1,31 +1,45 @@
-import React, { Component } from 'react';
-import { connect } from "react-redux";
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from "react-redux";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import { onInit } from '../../actions/authActions';
 
 import Login from "../../containers/Login";
 import Home from "../../containers/Home";
 
 import './App.scss';
 
-const mapStateToProps = state => {
-  return { logged: state.get("auth").get("logged") };
+const CheckLogin = () => {
+	const [ready, setReady] = useState(false);
+	const dispatch = useDispatch();
+	useEffect(() => {
+
+		dispatch(onInit()).then(() => {
+			setReady(true);
+		});
+	}, []);
+
+	if (!ready) {
+		return (
+			<div className="container">
+				<div className="row justify-content-center">
+					<h1 className="site-title">Magic Urls</h1>
+				</div>
+			</div>
+		);
+	} else {
+		return (
+			<Router>
+				<Route path="/login" exact component={Login} />
+				<Route path="/home" component={Home} />
+			</Router>
+		);
+	}
+};
+
+const App = () => {
+	return (
+		<CheckLogin />
+	);
 }
-
-
-class ConnectedApp extends Component {
-  render() {
-
-    return (
-      <Router>
-        <Route path="/" exact component={Login} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/home" component={Home} />
-      </Router>
-
-    );
-  }
-}
-
-const App = connect(mapStateToProps)(ConnectedApp);
-
 export default App;

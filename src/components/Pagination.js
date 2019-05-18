@@ -27,7 +27,9 @@ function Pagination(props) {
 
     if (props.children.length === 0) {
         return (
-            <p>No urls yet</p>
+            <div className="alert alert-warning mt-5" role="alert">
+                No urls yet
+            </div>
         );
     }
 

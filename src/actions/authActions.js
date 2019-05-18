@@ -1,5 +1,15 @@
 import { LOGIN_START, LOGIN_OK, LOGIN_FAIL, LOGOUT, SIGNUP_OK, SIGNUP_FAIL } from "../constants/action-types";
 
+export const onInit = () => dispatch => new Promise((resolve, reject) => {
+	let token = localStorage.getItem('TOKEN');
+	if (token) {
+		dispatch(checkToken(token))
+			.then(() => resolve())
+			.catch(() => reject());
+	} else {
+		resolve();
+	}
+});
 
 export const login = payload => dispatch => {
 	dispatch({ type: LOGIN_START });
