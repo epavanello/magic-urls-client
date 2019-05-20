@@ -6,6 +6,8 @@ import { onInit } from '../../actions/authActions';
 
 import Login from "../../containers/Login";
 import Home from "../../containers/Home";
+import Profile from "../Profile";
+import Header from "../../components/Header";
 
 import './App.scss';
 
@@ -21,18 +23,20 @@ const CheckLogin = () => {
 
 	if (!ready) {
 		return (
-			<div className="container">
-				<div className="row justify-content-center">
-					<h1 className="site-title">Magic Urls</h1>
-				</div>
-			</div>
+			<>
+			</>
 		);
 	} else {
 		return (
-			<Router>
-				<Route path="/login" exact component={Login} />
-				<Route path="/home" component={Home} />
-			</Router>
+			<div className="container">
+				<Router>
+					<Header></Header>
+					<Route path="/" exact component={Home} />
+					<Route path="/login" exact component={Login} />
+					<Route path="/home" component={Home} />
+					<Route path="/profile" component={Profile} />
+				</Router>
+			</div>
 		);
 	}
 };
