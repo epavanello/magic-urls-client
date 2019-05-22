@@ -15,7 +15,6 @@ const CheckLogin = () => {
 	const [ready, setReady] = useState(false);
 	const dispatch = useDispatch();
 	useEffect(() => {
-
 		dispatch(onInit()).then(() => {
 			setReady(true);
 		});
@@ -36,6 +35,7 @@ const CheckLogin = () => {
 					<Route path="/home" component={Home} />
 					<Route path="/profile" component={Profile} />
 				</Router>
+				<span className="WIP" onClick={() => alert('The trees that are slow to grow bear the best fruit.')}>Work in progrss</span>
 			</div>
 		);
 	}

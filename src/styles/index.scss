@@ -1,4 +1,5 @@
 @import "_common";
+@import url("https://fonts.googleapis.com/css?family=Gloria+Hallelujah");
 
 body {
   margin: 0;
@@ -63,4 +64,16 @@ body {
       color: $primary-lighter;
     }
   }
+}
+
+.WIP {
+  position: fixed;
+  font-family: "Gloria Hallelujah", cursive;
+  font-size: 26px;
+  color: $primary;
+  -webkit-transform: translate(50%, 50%) rotate(-45deg);
+  transform: translate(50%, 50%) rotate(-45deg);
+  right: 100px;
+  bottom: 100px;
+  cursor: pointer;
 }

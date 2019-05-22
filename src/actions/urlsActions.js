@@ -1,8 +1,10 @@
 import { ADD_URL, URL_LIST_ERROR, URL_POST_ERROR, URLS_READY, URL_DELETED } from "../constants/action-types";
 
+import config from '../config';
+
 export const addUrl = payload => async (dispatch, getState) => {
 	try {
-		const response = await fetch("http://localhost:8000/api/urls/", {
+		const response = await fetch(config.api.uri + "urls/", {
 			method: "POST",
 			headers: {
 				'Accept': 'application/json',
@@ -24,7 +26,7 @@ export const addUrl = payload => async (dispatch, getState) => {
 }
 
 export const loadUrls = () => (dispatch, getState) => {
-	return fetch("http://localhost:8000/api/urls/", {
+	return fetch(config.api.uri + "urls/", {
 		headers: {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
@@ -49,7 +51,7 @@ export const loadUrls = () => (dispatch, getState) => {
 
 
 export const deleteUrl = (id) => (dispatch, getState) => {
-	return fetch("http://localhost:8000/api/urls/" + id, {
+	return fetch(config.api.uri + "urls/" + id, {
 		method: "DELETE",
 		headers: {
 			'Accept': 'application/json',

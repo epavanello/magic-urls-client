@@ -2,6 +2,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteUrl } from "../actions/urlsActions";
 
+import config from '../config';
+
 const UrlListItem = (props) => {
     const dispatch = useDispatch();
 
@@ -12,7 +14,7 @@ const UrlListItem = (props) => {
     function copyUrl() {
         var inp = document.createElement('input');
         document.body.appendChild(inp);
-        inp.value = 'http://localhost:8000/go/' + props.alias;
+        inp.value = config.shortner.uri + props.alias;
         inp.select();
         document.execCommand('copy', false);
         inp.remove();

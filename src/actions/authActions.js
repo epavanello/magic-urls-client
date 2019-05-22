@@ -1,5 +1,7 @@
 import { LOGIN_START, LOGIN_OK, LOGIN_FAIL, LOGOUT, SIGNUP_OK, SIGNUP_FAIL } from "../constants/action-types";
 
+import config from '../config';
+
 export const onInit = () => dispatch => new Promise((resolve, reject) => {
 	let token = localStorage.getItem('TOKEN');
 	if (token) {
@@ -13,7 +15,7 @@ export const onInit = () => dispatch => new Promise((resolve, reject) => {
 
 export const login = payload => dispatch => {
 	dispatch({ type: LOGIN_START });
-	return fetch("http://localhost:8000/api/auth/login", {
+	return fetch(config.api.uri + "login", {
 		method: 'POST',
 		headers: {
 			'Accept': 'application/json',
@@ -37,7 +39,7 @@ export const login = payload => dispatch => {
 }
 
 export const signup = payload => dispatch => {
-	return fetch("http://localhost:8000/api/auth/signup", {
+	return fetch(config.api.uri + "signup", {
 		method: 'POST',
 		headers: {
 			'Accept': 'application/json',
@@ -62,7 +64,7 @@ export const signup = payload => dispatch => {
 }
 
 export const checkToken = token => dispatch => {
-	return fetch("http://localhost:8000/api/users/me", {
+	return fetch(config.api.uri + "users/me", {
 		headers: {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
