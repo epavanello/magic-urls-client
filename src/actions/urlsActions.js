@@ -26,7 +26,7 @@ export const addUrl = payload => async (dispatch, getState) => {
 }
 
 export const loadUrls = () => (dispatch, getState) => {
-	return fetch(config.api.uri + "urls/", {
+	return fetch(config.api.uri + "urls", {
 		headers: {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',

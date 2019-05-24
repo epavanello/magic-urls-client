@@ -15,7 +15,7 @@ export const onInit = () => dispatch => new Promise((resolve, reject) => {
 
 export const login = payload => dispatch => {
 	dispatch({ type: LOGIN_START });
-	return fetch(config.api.uri + "login", {
+	return fetch(config.api.uri + "auth/login", {
 		method: 'POST',
 		headers: {
 			'Accept': 'application/json',
@@ -39,7 +39,7 @@ export const login = payload => dispatch => {
 }
 
 export const signup = payload => dispatch => {
-	return fetch(config.api.uri + "signup", {
+	return fetch(config.api.uri + "auth/signup", {
 		method: 'POST',
 		headers: {
 			'Accept': 'application/json',
