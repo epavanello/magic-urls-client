@@ -2,43 +2,25 @@ import { LOGIN_START, LOGIN_OK, LOGIN_FAIL, LOGOUT, SIGNUP_OK, SIGNUP_FAIL } fro
 
 import config from '../config';
 
-export const onInit = () => dispatch => new Promise((resolve, reject) => {
-	let token = localStorage.getItem('TOKEN');
-	if (token) {
-		dispatch(checkToken(token))
-			.then(() => resolve())
-			.catch(() => reject());
-	} else {
-		resolve();
-	}
-});
+import { firebase } from '../firebase';
 
 export const login = payload => dispatch => {
 	dispatch({ type: LOGIN_START });
-	return fetch(config.api.uri + "auth/login", {
-		method: 'POST',
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({ username: payload.email, password: payload.password })
-	})
-		.then(response => {
-			if (response.ok) {
-				return response.json();
-			}
-			return response.json().then(json => {
-				throw new Error(json.message);
-			});
-		})
-		.then(json => {
-			dispatch({ type: LOGIN_OK, payload: json.token });
-		}).catch(e => {
-			dispatch({ type: LOGIN_FAIL, payload: e.message });
-		});
+
+	return firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).catch(function(error) {
+		dispatch({ type: LOGIN_FAIL, payload: error.message });
+		console.log(error);
+	});
 }
 
 export const signup = payload => dispatch => {
+
+	return firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).then(user_data => {
+		dispatch({ type: SIGNUP_OK });
+	});
+
+
+
 	return fetch(config.api.uri + "auth/signup", {
 		method: 'POST',
 		headers: {
@@ -64,20 +46,21 @@ export const signup = payload => dispatch => {
 }
 
 export const checkToken = token => dispatch => {
-	return fetch(config.api.uri + "users/me", {
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json',
-			'Authorization': token
-		}
-	})
-		.then(response => response.json())
-		.then(json => {
-			dispatch({ type: LOGIN_OK, payload: token });
-		}).catch(e => {
-		});
+	dispatch({ type: LOGIN_OK, payload: token });
+	/*
+	return firebase.auth().signInWithCustomToken(token).then(user_data => {
+		user_data.user.getIdToken().then(token => dispatch({ type: LOGIN_OK, payload: token }))
+	}).catch(function(error) {
+		// An error happened.
+		console.log(error);
+	});*/
 }
 
-export function logout() {
-	return { type: LOGOUT }
+export const logout = payload => dispatch => {
+	return firebase.auth().signOut().then(function() {
+		dispatch({ type: LOGOUT });
+	}).catch(function(error) {
+		// An error happened.
+		console.log(error);
+	});
 }

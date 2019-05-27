@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from "react-redux";
+import React from 'react';
+import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-
-import { onInit } from '../../actions/authActions';
 
 import Login from "../../containers/Login";
 import Home from "../../containers/Home";
@@ -11,16 +9,11 @@ import Header from "../../components/Header";
 
 import './App.scss';
 
-const CheckLogin = () => {
-	const [ready, setReady] = useState(false);
-	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(onInit()).then(() => {
-			setReady(true);
-		});
-	}, []);
 
-	if (!ready) {
+const CheckLogin = () => {
+	const verified = useSelector(state => state.get("auth").get("verified"));
+
+	if (!verified) {
 		return (
 			<>
 			</>

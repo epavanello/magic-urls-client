@@ -1,3 +1,4 @@
+export const LOGIN_VERIFIED = "LOGIN_VERIFIED";
 export const LOGIN_START = "LOGIN_START";
 export const LOGIN_OK = "LOGIN_OK";
 export const LOGIN_FAIL = "LOGIN_FAIL";

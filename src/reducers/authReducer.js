@@ -1,8 +1,9 @@
-import { LOGIN_START, LOGIN_OK, LOGIN_FAIL, LOGOUT, SIGNUP_OK, SIGNUP_FAIL } from "../constants/action-types"
+import { LOGIN_VERIFIED, LOGIN_START, LOGIN_OK, LOGIN_FAIL, LOGOUT, SIGNUP_OK, SIGNUP_FAIL } from "../constants/action-types"
 
 import { fromJS } from 'immutable';
 
 const authState = fromJS({
+    verified: false,
     logged: false,
     token: "",
     login_failed: false,
@@ -14,6 +15,9 @@ const authState = fromJS({
 
 export default function(state = authState, action) {
     switch (action.type) {
+        case LOGIN_VERIFIED:
+            return state
+                .set("verified", true);
         case LOGIN_START:
             return state
                 .set("logged", false)

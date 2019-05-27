@@ -5,6 +5,8 @@ import { Provider } from "react-redux";
 import App from './containers/App';
 import store from "./store";
 
+import './firebase';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles/index.scss';
 
